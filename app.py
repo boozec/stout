@@ -1,24 +1,15 @@
 import redis
 import sys
+from socket import gethostbyname as gethost
+from socket import gethostname as getname
 
 r = redis.Redis()
 
-if r.get('iduser') is None:
-    r.set('iduser', '0')
-
-def iduser():
-    try:
-        with open('myid.txt', 'r') as f:
-            iduser = f.read()
-
-    except FileNotFoundError:
-        iduser = ''
-
-    return iduser
+host = gethost(getname())
 
 def user():
-    if r.hget('user:'+iduser(), 'name') is not None:
-        return r.hget('user:'+iduser(), 'name').decode("utf-8")
+    if r.hget('user:'+host, 'name') is not None:
+        return r.hget('user:'+host, 'name').decode("utf-8")
     else:
         return ''
 
@@ -39,10 +30,10 @@ class Command(object):
         "set" : "set a value",
     }
 
-    c_commands = ('quit','set', 'get')
-
-    whatdo = {
+    commands = {
+        'quit' : None,
         'set' : ['user', 'host'],
+        'get' : None
     }
 
     @staticmethod
@@ -65,26 +56,17 @@ class Stout(object):
         if self.user == '':
             return word
         else:
-            return word + Colors.grey + "(" + self.user + ") "
+            return word + Colors.grey + "(" + self.user + ":" + host + ") "
 
     def command(self, what, cmd):
         if what == 'set':
             try:
                 if cmd[1] == 'user' and cmd[2] is not None:
-                    if self.user == '':
-                        new_id = str(int(r.get('iduser').decode("utf-8"))+1)
-                        r.incr('iduser')
-                    else:
-                        new_id = iduser()
-
                     self.user = cmd[2]
-                    r.hset('user:'+new_id,'name', self.user)
-
-                    with open('myid.txt', 'w') as f:
-                        f.write(new_id)
+                    r.hset('user:'+host, 'name', self.user)
 
                     print("Ok")
-                elif cmd[1] is not Command.whatdo['set']:
+                elif cmd[1] is not Command.commands['set']:
                     raise IndexError
             except IndexError:
                 Command.err('wrong')
@@ -96,19 +78,19 @@ class Stout(object):
             cmd = cmd.split()
             count = len(cmd)
 
-            if count == 1 and cmd[0] not in Command.c_commands:
+            if count == 1 and cmd[0] not in Command.commands:
                 try:
                     print(Command.info[cmd[0]])
                 except KeyError:
                     Command.err('keyword')
-            elif count == 2 and cmd[0] == 'info' and cmd[0] not in Command.c_commands:
+            elif count == 2 and cmd[0] == 'info' and cmd[0] not in Command.commands:
                 try:
                     print(Command.c_info[cmd[1]])
                 except KeyError:
                     Command.err('keyword')
             else:
                 what = cmd[0]
-                if what in Command.c_commands:
+                if what in Command.commands:
                     self.command(what, cmd)
                 else:
                     Command.err('keyword')
