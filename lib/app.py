@@ -9,7 +9,7 @@ class Stout(Commands):
         self.user = Stout.username()
 
     def getName(self):
-        word = ' (' + self.name + ') '
+        word = ' (' + self.name + ' ) '
         if self.user == '':
             return word
         else:
