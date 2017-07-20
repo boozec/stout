@@ -27,9 +27,11 @@ class Commands(object):
 
                     print('Ok')
                 elif cmd[1] is not ListCommands.commands['set']:
-                    raise IndexError
+                    raise KeyError
             except IndexError:
                 ListCommands.err('wrong')
+            except KeyError:
+                ListCommands.err('keyword')
             except PersonalError as e:
                 ListCommands.err('personal', e.value)
         elif what == 'get':
