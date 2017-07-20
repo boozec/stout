@@ -43,16 +43,10 @@ class Commands(object):
                             print(r.hget('user:'+host, 'name').decode('utf-8'))
                         else:
                             print('nil')
-                    elif cmd[2] == 'host':
-                        print(co['host'])
-                    elif cmd[2] == 'port':
-                        print(co['post'])
-                    elif cmd[2] == 'socket_path':
-                        print(co['unix_socket_path'])
-                    elif cmd[2] == 'db':
-                        print(co['db'])
                     elif cmd[2] not in ListCommands.commands['get'][1]:
                         ListCommands.err('keyword')
+                    else:
+                        print(co[cmd[2]])
                 elif cmd[1] == 'user?':
                     if len(cmd) > 3:
                         raise PersonalError(Colors.grey + 'get user?' + Colors.red + ' accetta 1 parametro')
