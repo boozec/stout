@@ -2,6 +2,9 @@ import sys
 from classes import Colors
 
 class ListCommands(object):
+    """
+    ListCommands is used for return errors and check what commands exists
+    """
 
     info = {
         'info' : 'this is stout',

@@ -7,12 +7,18 @@ s.connect(('8.8.8.8', 80))
 host = s.getsockname()[0]
 
 def clear():
+    """
+    clear the window
+    """
     try:
         os.system('clear')
     except:
         os.system('cls')
 
 def userexist(name):
+    """
+    lista is a list for the set called USERSNAME. check if name is in lista
+    """
     lista = r.zrange('usersname', 0, -1)
     for i in lista:
         if name == i.decode('utf-8'):

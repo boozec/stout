@@ -5,7 +5,7 @@ from listcommands import ListCommands
 class Stout(Commands):
 
     def __init__(self):
-        self.name = u'\U0001F37A'
+        self.name = u'\U0001F37A' #berr icon
         self.user = Stout.username()
 
     def getName(self):
@@ -17,12 +17,21 @@ class Stout(Commands):
 
     @staticmethod
     def username():
+        """
+        if users exists, return username:0.0.0.0, else return an empty string.
+        there is a set into user:HOST with a variable called name
+        """
         if r.hget('user:'+host, 'name') is not None:
-            return r.hget('user:'+host, 'name').decode('utf-8')
+            return r.hget('user:'+host, 'name').decode('utf-8') #default is a byte
         else:
             return ''
 
     def action(self, cmd):
+        """
+        if cmd is empty, do nothing.
+        if length of cmd is less than 3 and the first word isn't in list of commands, the command is INFO
+        else execute command into ListCommands.commands (<- list)
+        """
         if cmd is None:
             return None
         else:
@@ -31,9 +40,9 @@ class Stout(Commands):
 
             if (count == 1 or count == 2) and cmd[0] not in ListCommands.commands:
                 try:
-                    if cmd[0] == 'info' and count == 1:
+                    if cmd[0] == 'info' and count == 1: #general info
                         print(ListCommands.info['info'])
-                    elif cmd[0] == 'info' and count == 2:
+                    elif cmd[0] == 'info' and count == 2: #info of a command
                         print(ListCommands.info[cmd[1]][0])
                     else:
                         raise KeyError
@@ -56,7 +65,7 @@ if __name__ == '__main__':
             cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
         except EOFError:
             break
-            
+
         app.action(cmd)
         r.save()
 
