@@ -13,7 +13,7 @@ class Commands(object):
 
                     if userexist(cmd[2]) == True: raise PersonalError('questo nome utente esiste già')
 
-                    if len(cmd) > ListCommands.info['set'][1]: raise PersonalError(Colors.grey + 'set user' + Colors.red + ' accetta 1 parametri')
+                    if len(cmd) > ListCommands.info['set'][1]: raise PersonalError(Colors.grey + 'set user' + Colors.red + ' accetta 1 parametro')
 
                     if self.user != '': r.zrem('usersname', self.user)
 
