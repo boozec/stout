@@ -5,7 +5,7 @@ from listcommands import ListCommands
 class Stout(Commands):
 
     def __init__(self):
-        self.name = 'stout'
+        self.name = u'\U0001F37A'
         self.user = Stout.username()
 
     def getName(self):
@@ -52,7 +52,11 @@ if __name__ == '__main__':
     app = Stout()
     cmd = ''
     while cmd != 'quit':
-        cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
+        try:
+            cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
+        except EOFError:
+            break
+            
         app.action(cmd)
         r.save()
 
