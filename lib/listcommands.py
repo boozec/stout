@@ -6,13 +6,14 @@ class ListCommands(object):
     info = {
         'info' : 'this is stout',
         'set' : ['set a value', 3],
+        'get' : ['return a value', 3]
     }
 
     commands = {
         'quit' : None,
         'clear' : None,
         'set' : ['user'],
-        'get' : ['user', 'user?', 'host', 'port']
+        'get' : ['i', ['user', 'host', 'port'], 'user?']
     }
 
     @staticmethod
