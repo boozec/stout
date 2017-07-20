@@ -33,8 +33,10 @@ class Stout(Commands):
                 try:
                     if cmd[0] == 'info' and count == 1:
                         print(ListCommands.info['info'])
-                    else:
+                    elif cmd[0] == 'info' and count == 2:
                         print(ListCommands.info[cmd[1]])
+                    else:
+                        raise KeyError
                 except (KeyError, IndexError):
                     ListCommands.err('keyword')
             else:
