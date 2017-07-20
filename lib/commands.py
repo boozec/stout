@@ -1,5 +1,6 @@
 from classes import userexist, PersonalError, r, host, clear, Colors
 from listcommands import ListCommands
+from config import config as co
 
 class Commands(object):
 
@@ -43,9 +44,13 @@ class Commands(object):
                         else:
                             print('nil')
                     elif cmd[2] == 'host':
-                        print('localhost')
+                        print(co['host'])
                     elif cmd[2] == 'port':
-                        print('6379')
+                        print(co['post'])
+                    elif cmd[2] == 'socket_path':
+                        print(co['unix_socket_path'])
+                    elif cmd[2] == 'db':
+                        print(co['db'])
                     elif cmd[2] not in ListCommands.commands['get'][1]:
                         ListCommands.err('keyword')
                 elif cmd[1] == 'user?':

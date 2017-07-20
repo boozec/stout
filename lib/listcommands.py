@@ -13,7 +13,7 @@ class ListCommands(object):
         'quit' : None,
         'clear' : None,
         'set' : ['user'],
-        'get' : ['i', ['user', 'host', 'port'], 'user?']
+        'get' : ['i', ['user', 'host', 'port', 'socket_path', 'db'], 'user?']
     }
 
     @staticmethod
