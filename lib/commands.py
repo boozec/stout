@@ -34,7 +34,7 @@ class Commands(object):
                 ListCommands.err('personal', e.value)
         elif what == 'get':
             try:
-                if len(cmd) > ListCommands.info['get'][1] and cmd[1] != 'user?':
+                if len(cmd) > ListCommands.info['get'][1]:
                     raise PersonalError(Colors.grey + 'get ' + Colors.red + 'accetta 2 parametri')
 
                 if cmd[1] == 'i':
