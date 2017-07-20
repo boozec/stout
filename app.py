@@ -9,16 +9,16 @@ class Stout(Commands):
         self.user = Stout.username()
 
     def getName(self):
-        word = " (" + self.name + ") "
+        word = ' (' + self.name + ') '
         if self.user == '':
             return word
         else:
-            return word + Colors.grey + "(" + self.user + ":" + host + ") "
+            return word + Colors.grey + '(' + self.user + ':' + host + ') '
 
     @staticmethod
     def username():
         if r.hget('user:'+host, 'name') is not None:
-            return r.hget('user:'+host, 'name').decode("utf-8")
+            return r.hget('user:'+host, 'name').decode('utf-8')
         else:
             return ''
 
@@ -34,7 +34,7 @@ class Stout(Commands):
                     if cmd[0] == 'info' and count == 1:
                         print(ListCommands.info['info'])
                     elif cmd[0] == 'info' and count == 2:
-                        print(ListCommands.info[cmd[1]])
+                        print(ListCommands.info[cmd[1]][0])
                     else:
                         raise KeyError
                 except (KeyError, IndexError):
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     app = Stout()
     cmd = ''
     while cmd != 'quit':
-        cmd = input(">" + Colors.yellow + app.getName() + Colors.black)
+        cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
         app.action(cmd)
         r.save()
 

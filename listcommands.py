@@ -4,24 +4,25 @@ from classes import Colors
 class ListCommands(object):
 
     info = {
-        "info" : "this is stout",
-        "set" : "set a value",
+        'info' : 'this is stout',
+        'set' : ['set a value', 3],
     }
 
     commands = {
-        'quit' : None,
+        'quit' : None, #quit and exit do same thing
+        'exit' : None,
         'clear' : None,
-        'set' : ['user', 'host'],
-        'get' : None
+        'set' : ['user'],
+        'get' : ['user', 'user?', 'host', 'port']
     }
 
     @staticmethod
     def err(err, info = ''):
         if err == 'keyword':
-            sys.stderr.write(Colors.red + "keyword inesistente\n" + Colors.black)
+            sys.stderr.write(Colors.red + 'keyword inesistente\n' + Colors.black)
         elif err == 'wrong':
-            sys.stderr.write(Colors.red + "sintassi comando errata\n" + Colors.black)
+            sys.stderr.write(Colors.red + 'sintassi comando errata\n' + Colors.black)
         elif err == 'personal':
-            sys.stderr.write(Colors.red + str(info) + "\n" + Colors.black)
+            sys.stderr.write(Colors.red + str(info) + '\n' + Colors.black)
         else:
             pass
