@@ -9,8 +9,7 @@ class ListCommands(object):
     }
 
     commands = {
-        'quit' : None, #quit and exit do same thing
-        'exit' : None,
+        'quit' : None,
         'clear' : None,
         'set' : ['user'],
         'get' : ['user', 'user?', 'host', 'port']
