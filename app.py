@@ -8,20 +8,6 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 host = s.getsockname()[0]
 
-def user():
-    if r.hget('user:'+host, 'name') is not None:
-        return r.hget('user:'+host, 'name').decode("utf-8")
-    else:
-        return ''
-
-def userexist(name):
-    lista = r.zrange('usersname', 0, -1)
-    for i in lista:
-        if name == i.decode("utf-8"):
-            return True
-    else:
-        return False
-
 class PersonalError(Exception):
 
     def __init__(self, value):
@@ -69,7 +55,7 @@ class Stout(object):
 
     def __init__(self):
         self.name = 'stout'
-        self.user = user()
+        self.user = Stout.username()
 
     def getName(self):
         word = " (" + self.name + ") "
@@ -78,13 +64,29 @@ class Stout(object):
         else:
             return word + Colors.grey + "(" + self.user + ":" + host + ") "
 
+    @staticmethod
+    def username():
+        if r.hget('user:'+host, 'name') is not None:
+            return r.hget('user:'+host, 'name').decode("utf-8")
+        else:
+            return ''
+
+    @staticmethod
+    def userexist(name):
+        lista = r.zrange('usersname', 0, -1)
+        for i in lista:
+            if name == i.decode("utf-8"):
+                return True
+        else:
+            return False
+
     def command(self, what, cmd):
         if what == 'set':
             try:
                 if cmd[1] == 'user' and cmd[2] is not None:
                     if len(cmd[2]) > 10: raise PersonalError("lunghezza maggiore del consetito. Max 10")
 
-                    if userexist(cmd[2]) == True: raise PersonalError("questo nome utente esiste già")
+                    if Stout.userexist(cmd[2]) == True: raise PersonalError("questo nome utente esiste già")
 
                     if self.user != '': r.zrem('usersname', self.user)
 
@@ -126,7 +128,6 @@ class Stout(object):
 if __name__ == '__main__':
     app = Stout()
     cmd = ''
-
     while cmd != 'quit':
         cmd = input(">" + Colors.yellow + app.getName() + Colors.black)
         app.action(cmd)
