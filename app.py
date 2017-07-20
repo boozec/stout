@@ -1,11 +1,12 @@
 import redis
 import sys
-from socket import gethostbyname as gethost
-from socket import gethostname as getname
+import socket
 
 r = redis.Redis()
 
-host = gethost(getname())
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+host = s.getsockname()[0]
 
 def user():
     if r.hget('user:'+host, 'name') is not None:
@@ -13,7 +14,25 @@ def user():
     else:
         return ''
 
+def userexist(name):
+    lista = r.zrange('usersname', 0, -1)
+    for i in lista:
+        if name == i.decode("utf-8"):
+            return True
+    else:
+        return False
+
+class PersonalError(Exception):
+
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
+
+
 class Colors(object):
+
     red = '\033[91m'
     yellow = '\033[93m'
     grey = '\033[90m'
@@ -22,11 +41,9 @@ class Colors(object):
 
 
 class Command(object):
+
     info = {
         "info" : "this is stout",
-    }
-
-    c_info = {
         "set" : "set a value",
     }
 
@@ -37,13 +54,16 @@ class Command(object):
     }
 
     @staticmethod
-    def err(err):
+    def err(err, info = ''):
         if err == 'keyword':
             sys.stderr.write(Colors.red + "keyword inesistente\n" + Colors.black)
         elif err == 'wrong':
             sys.stderr.write(Colors.red + "sintassi comando errata\n" + Colors.black)
+        elif err == 'personal':
+            sys.stderr.write(Colors.red + str(info) + "\n" + Colors.black)
         else:
             pass
+
 
 class Stout(object):
 
@@ -62,14 +82,23 @@ class Stout(object):
         if what == 'set':
             try:
                 if cmd[1] == 'user' and cmd[2] is not None:
+                    if len(cmd[2]) > 10: raise PersonalError("lunghezza maggiore del consetito. Max 10")
+
+                    if userexist(cmd[2]) == True: raise PersonalError("questo nome utente esiste già")
+
+                    if self.user != '': r.zrem('usersname', self.user)
+
                     self.user = cmd[2]
                     r.hset('user:'+host, 'name', self.user)
+                    r.zadd('usersname', self.user, 0)
 
                     print("Ok")
                 elif cmd[1] is not Command.commands['set']:
                     raise IndexError
             except IndexError:
                 Command.err('wrong')
+            except PersonalError as e:
+                Command.err('personal', e.value)
 
     def action(self, cmd):
         if cmd is None:
@@ -78,15 +107,13 @@ class Stout(object):
             cmd = cmd.split()
             count = len(cmd)
 
-            if count == 1 and cmd[0] not in Command.commands:
+            if (count == 1 or count == 2) and cmd[0] not in Command.commands:
                 try:
-                    print(Command.info[cmd[0]])
-                except KeyError:
-                    Command.err('keyword')
-            elif count == 2 and cmd[0] == 'info' and cmd[0] not in Command.commands:
-                try:
-                    print(Command.c_info[cmd[1]])
-                except KeyError:
+                    if cmd[0] == 'info' and count == 1:
+                        print(Command.info['info'])
+                    else:
+                        print(Command.info[cmd[1]])
+                except (KeyError, IndexError):
                     Command.err('keyword')
             else:
                 what = cmd[0]
@@ -94,6 +121,7 @@ class Stout(object):
                     self.command(what, cmd)
                 else:
                     Command.err('keyword')
+
 
 if __name__ == '__main__':
     app = Stout()
@@ -103,3 +131,5 @@ if __name__ == '__main__':
         cmd = input(">" + Colors.yellow + app.getName() + Colors.black)
         app.action(cmd)
         r.save()
+
+    s.close()
