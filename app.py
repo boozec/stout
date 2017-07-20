@@ -26,7 +26,7 @@ class Colors(object):
     bold = '\033[1m'
 
 
-class Command(object):
+class ListCommand(object):
 
     info = {
         "info" : "this is stout",
@@ -51,7 +51,32 @@ class Command(object):
             pass
 
 
-class Stout(object):
+class Commands(object):
+
+    def command(self, what, cmd):
+        if what == 'set':
+            try:
+                if cmd[1] == 'user' and cmd[2] is not None:
+                    if len(cmd[2]) > 10: raise PersonalError("lunghezza maggiore del consetito. Max 10")
+
+                    if Stout.userexist(cmd[2]) == True: raise PersonalError("questo nome utente esiste già")
+
+                    if self.user != '': r.zrem('usersname', self.user)
+
+                    self.user = cmd[2]
+                    r.hset('user:'+host, 'name', self.user)
+                    r.zadd('usersname', self.user, 0)
+
+                    print("Ok")
+                elif cmd[1] is not ListCommand.commands['set']:
+                    raise IndexError
+            except IndexError:
+                ListCommand.err('wrong')
+            except PersonalError as e:
+                ListCommand.err('personal', e.value)
+
+
+class Stout(Commands):
 
     def __init__(self):
         self.name = 'stout'
@@ -80,28 +105,6 @@ class Stout(object):
         else:
             return False
 
-    def command(self, what, cmd):
-        if what == 'set':
-            try:
-                if cmd[1] == 'user' and cmd[2] is not None:
-                    if len(cmd[2]) > 10: raise PersonalError("lunghezza maggiore del consetito. Max 10")
-
-                    if Stout.userexist(cmd[2]) == True: raise PersonalError("questo nome utente esiste già")
-
-                    if self.user != '': r.zrem('usersname', self.user)
-
-                    self.user = cmd[2]
-                    r.hset('user:'+host, 'name', self.user)
-                    r.zadd('usersname', self.user, 0)
-
-                    print("Ok")
-                elif cmd[1] is not Command.commands['set']:
-                    raise IndexError
-            except IndexError:
-                Command.err('wrong')
-            except PersonalError as e:
-                Command.err('personal', e.value)
-
     def action(self, cmd):
         if cmd is None:
             return None
@@ -109,20 +112,20 @@ class Stout(object):
             cmd = cmd.split()
             count = len(cmd)
 
-            if (count == 1 or count == 2) and cmd[0] not in Command.commands:
+            if (count == 1 or count == 2) and cmd[0] not in ListCommand.commands:
                 try:
                     if cmd[0] == 'info' and count == 1:
-                        print(Command.info['info'])
+                        print(ListCommand.info['info'])
                     else:
-                        print(Command.info[cmd[1]])
+                        print(ListCommand.info[cmd[1]])
                 except (KeyError, IndexError):
-                    Command.err('keyword')
+                    ListCommand.err('keyword')
             else:
                 what = cmd[0]
-                if what in Command.commands:
+                if what in ListCommand.commands:
                     self.command(what, cmd)
                 else:
-                    Command.err('keyword')
+                    ListCommand.err('keyword')
 
 
 if __name__ == '__main__':
