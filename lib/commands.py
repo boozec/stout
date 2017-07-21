@@ -52,7 +52,7 @@ class Commands(object):
                     todolist = r.zrange('todo', 0, -1)
 
                     if len(todolist) == 0: #if todo is empty
-                        print('nessun todo in lista')
+                        print('nessun todo in lista: goditi una Stout')
                     else:
                         for num, i in enumerate(todolist): #num = index, i = value
                             print('| {} |\t {}'.format(num, i.decode('utf-8')))
@@ -96,7 +96,7 @@ class Commands(object):
                     raise PersonalError(Colors.grey + 'del ' + Colors.red + 'accetta 1 parametro')
 
                 if r.get('idTODO') is None: #idTODO is null, not 0
-                    print('nessun todo in lista')
+                    print('nessun todo in lista: goditi una Stout')
                 elif cmd[1] >= r.get('idTODO').decode('utf-8'):
                     print('nessun todo con questo id')
                 else:
