@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Stout &middot; check TODO list thank to Redis</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="stout, redis, todo, list">
+	<meta name="description" content="Check TODO list thank to Redis">
+	<meta property="og:site_name" content="Stout">
+	<meta property="og:title" content="Stout &middot; Check TODO list thank to Redis">
+	<meta property="og:url" content="http://example.com">
+	<meta property="og:image" content="https://raw.githubusercontent.com/dcariotti/Stout/master/logo_stout.png">
+	<meta property="og:description" content="Organize coffee runs for your teammates in your slack channel.">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Stout &middot; Check TODO list thank to Redis">
+    <meta name="twitter:description" content="Check TODO list thank to Redis">
+	<meta name="twitter:creator" content="@dcariotti">
+	<meta name="twitter:image" content="https://raw.githubusercontent.com/dcariotti/Stout/master/logo_stout.png">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/dcariotti/Stout/master/lib/templates/fav.ico">
+    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <style>
+    body {
+        font-family: 'Space Mono', monospace;
+        background: #ffeb3b;
+        background: -moz-linear-gradient(top, #ffeb3b 0%, #ffd600 100%);
+        background: -webkit-linear-gradient(top, #ffeb3b 0%,#ffd600 100%);
+        background: linear-gradient(to bottom, #ffeb3b 0%,#ffd600 100%);
+        margin: 0;
+    }
+    header {
+        width: 100%;
+        height: 150px;
+        background: #F5F5F5;
+        border-bottom: rgba(0,0,0,0.1) 4px solid;
+        margin: 0;
+        padding: 0;
+    }
+
+    header img {
+        height: 75%;
+        margin: 15px;
+    }
+
+    #wrapper {
+        width: 80%;
+        min-height: 600px;
+        margin: 25px auto;
+    }
+
+    #wrapper .todo {
+        width: 100%;
+        min-height: 50px;
+        background: #FFF;
+        color: #1E1E1E;
+        padding: 0 20px;
+        font-size: 35pt;
+        border-radius: 4px;
+        border-bottom: rgba(0,0,0,0.1) 4px solid;
+        margin: 25px 0;
+    }
+    .todo p {margin:0;}
+    .todo p i {
+        color: #ffeb3b;
+    }
+    footer {
+        padding: 5px;
+    }
+    footer p {
+        color: #000;
+        text-align: center;
+    }
+    footer p a{ color: #000; text-decoration: none;cursor: pointer;}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://raw.githubusercontent.com/dcariotti/Stout/master/logo_stout.png" class="logo" />
+    </header>
+    <section id="wrapper">
+        {% if len_todo == 0 %}
+        <p style="color:#FFF; font-size: 50pt; margin: 100px 0 0;text-align:center;">
+            <i class="fa fa-beer" style="font-size:200pt"></i><br>
+            nessun todo in lista: goditi una <strong>Stout</strong>!!!</p>
+        {% endif %}
+        {% for i in list_todo %}
+        <div class="todo">
+            <p><i class="fa fa-bullhorn" aria-hidden="true"></i> {{ i.decode('utf-8') }}</p>
+        </div>
+        {% endfor %}
+    </section>
+    <footer>
+        <p>Made with <i class="fa fa-heart"></i> in <a class="fa fa-github" href="https://github.com/dcariotti/Stout"></a></p>
+    </footer>
+</body>

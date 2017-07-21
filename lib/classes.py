@@ -1,6 +1,10 @@
 import redis, socket, os
-from config import config as co
 
+try:
+    from .config import config as co
+except:
+    from config import config as co
+    
 r = redis.Redis(host=co['host'], port=co['port'], unix_socket_path=co['unix_socket_path'], db=co['db'])
 
 def clear():

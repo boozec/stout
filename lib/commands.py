@@ -101,10 +101,10 @@ class Commands(object):
                     print('nessun todo con questo id')
                 else:
                     try:
-                        msg = msgFromId(cmd[1]) #return value of sorted set's rank
+                        msg = self.msgFromId(cmd[1]) #return value of sorted set's rank
                         r.zrem('todo', msg)
                         r.decr('idTODO')
-                        print('Ok %s' % msg)
+                        print('Ok')
                     except:
                         print('0')
             except IndexError:
@@ -112,8 +112,7 @@ class Commands(object):
             except KeyError:
                 ListCommands.err('keyword')
 
-    @staticmethod
-    def msgFromId(value):
+    def msgFromId(self, value):
         for i, val in enumerate(r.zrange('todo', 0, -1)):
             if i == int(value):
                 return val.decode('utf-8')
