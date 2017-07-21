@@ -1,1 +1,1 @@
-# stout
+[logo](logo.svg)
