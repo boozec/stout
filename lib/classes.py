@@ -2,9 +2,6 @@ import redis, socket, os
 from config import config as co
 
 r = redis.Redis(host=co['host'], port=co['port'], unix_socket_path=co['unix_socket_path'], db=co['db'])
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(('8.8.8.8', 80))
-host = s.getsockname()[0]
 
 def clear():
     """
@@ -15,16 +12,16 @@ def clear():
     except:
         os.system('cls')
 
-def userexist(name):
-    """
-    lista is a list for the set called USERSNAME. check if name is in lista
-    """
-    lista = r.zrange('usersname', 0, -1)
-    for i in lista:
-        if name == i.decode('utf-8'):
-            return True
-        else:
-            return False
+# def userexist(name):
+#     """
+#     lista is a list for the set called USERSNAME. check if name is in lista
+#     """
+#     lista = r.zrange('usersname', 0, -1)
+#     for i in lista:
+#         if name == i.decode('utf-8'):
+#             return True
+#         else:
+#             return False
 
 class PersonalError(Exception):
 

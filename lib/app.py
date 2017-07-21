@@ -1,4 +1,4 @@
-from classes import PersonalError, Colors, r, s, host, clear
+from classes import PersonalError, Colors, r, clear
 from commands import Commands
 from listcommands import ListCommands
 
@@ -13,16 +13,15 @@ class Stout(Commands):
         if self.user == '':
             return word
         else:
-            return word + Colors.grey + '(' + self.user + ':' + host + ') '
+            return word + Colors.grey + '(' + self.user + ') '
 
     @staticmethod
     def username():
         """
-        if users exists, return username:0.0.0.0, else return an empty string.
-        there is a set into user:HOST with a variable called name
+        if users exists, return username, else return an empty string
         """
-        if r.hget('user:'+host, 'name') is not None:
-            return r.hget('user:'+host, 'name').decode('utf-8') #default is a byte
+        if r.get('user') is not None:
+            return r.get('user').decode('utf-8') #default is a byte
         else:
             return ''
 
@@ -69,5 +68,4 @@ if __name__ == '__main__':
         app.action(cmd)
         r.save()
 
-    s.close()
     clear()
