@@ -10,7 +10,7 @@ class ListCommands(object):
         'info' : 'this is stout',
         'set' : ['set a value', 3],
         'get' : ['return a value', 3],
-        'add' : 'new TODO',
+        'add' : ['new TODO',],
         'del' : ['del TODO', 2]
     }
 
