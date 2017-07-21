@@ -9,14 +9,18 @@ class ListCommands(object):
     info = {
         'info' : 'this is stout',
         'set' : ['set a value', 3],
-        'get' : ['return a value', 3]
+        'get' : ['return a value', 3],
+        'add' : 'new TODO',
+        'del' : ['del TODO', 2]
     }
 
     commands = {
         'quit' : None,
         'clear' : None,
         'set' : ['user'],
-        'get' : ['i', ['user', 'host', 'port', 'unix_socket_path', 'db']]
+        'get' : ['i', ['user', 'host', 'port', 'unix_socket_path', 'db'], 'todo', 'ctodo'],
+        'add' : None,
+        'del' : None,
     }
 
     @staticmethod

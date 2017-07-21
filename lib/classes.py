@@ -12,17 +12,6 @@ def clear():
     except:
         os.system('cls')
 
-# def userexist(name):
-#     """
-#     lista is a list for the set called USERSNAME. check if name is in lista
-#     """
-#     lista = r.zrange('usersname', 0, -1)
-#     for i in lista:
-#         if name == i.decode('utf-8'):
-#             return True
-#         else:
-#             return False
-
 class PersonalError(Exception):
 
     def __init__(self, value):

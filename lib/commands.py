@@ -48,6 +48,21 @@ class Commands(object):
                         ListCommands.err('keyword')
                     else:
                         print(co[cmd[2]])
+                elif cmd[1] == 'todo':
+                    todolist = r.zrange('todo', 0, -1)
+
+                    if len(todolist) == 0: #if todo is empty
+                        print('nessun todo in lista')
+                    else:
+                        for num, i in enumerate(todolist): #num = index, i = value
+                            print('| {} |\t {}'.format(num, i.decode('utf-8')))
+                elif cmd[1] == 'ctodo':
+                    count = r.get('idTODO')
+
+                    if count is None: #if idTODO is None or 0
+                        print('0')
+                    else:
+                        print(count.decode('utf-8'))
                 else:
                     raise KeyError
             except IndexError:
@@ -56,3 +71,49 @@ class Commands(object):
                 ListCommands.err('keyword')
             except PersonalError as e:
                 ListCommands.err('personal', e.value)
+        elif what == 'add':
+            try:
+                if r.get('idTODO') is None: #create idTODO if it's null
+                    r.set('idTODO', '0')
+
+                idTODO = r.get('idTODO').decode('utf-8')
+
+                msg = ' '.join(cmd[1:]) #join first word after 'add' to last word
+
+                try:
+                    r.zadd('todo', msg, idTODO)
+                    r.incr('idTODO')
+                    print('Ok')
+                except:
+                    raise KeyError
+            except IndexError:
+                ListCommands.err('wrong')
+            except KeyError:
+                ListCommands.err('keyword')
+        elif what == 'del':
+            try:
+                if len(cmd) > ListCommands.info['del'][1]:
+                    raise PersonalError(Colors.grey + 'del ' + Colors.red + 'accetta 1 parametro')
+
+                if r.get('idTODO') is None: #idTODO is null, not 0
+                    print('nessun todo in lista')
+                elif cmd[1] >= r.get('idTODO').decode('utf-8'):
+                    print('nessun todo con questo id')
+                else:
+                    try:
+                        msg = msgFromId(cmd[1]) #return value of sorted set's rank
+                        r.zrem('todo', msg)
+                        r.decr('idTODO')
+                        print('Ok %s' % msg)
+                    except:
+                        print('0')
+            except IndexError:
+                ListCommands.err('wrong')
+            except KeyError:
+                ListCommands.err('keyword')
+
+    @staticmethod
+    def msgFromId(value):
+        for i, val in enumerate(r.zrange('todo', 0, -1)):
+            if i == int(value):
+                return val.decode('utf-8')
