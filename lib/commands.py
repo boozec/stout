@@ -95,7 +95,7 @@ class Commands(object):
                 if len(cmd) > ListCommands.info['del'][1]:
                     raise PersonalError(Colors.grey + 'del ' + Colors.red + 'accetta 1 parametro')
 
-                if r.get('idTODO') is None: #idTODO is null, not 0
+                if r.get('idTODO') is None or r.get('idTODO') == 0: #idTODO is null or 0
                     print('nessun todo in lista: goditi una Stout')
                 elif cmd[1] >= r.get('idTODO').decode('utf-8'):
                     print('nessun todo con questo id')
