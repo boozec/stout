@@ -13,6 +13,8 @@ sudo pip install Flask
 sudo pip install redis
 ```
 
+### web.py
+
 Il software dispone di un client per il web in modo da visualizzare la lista dei todo in modo più comodo. _Necessita dell'installazione del microframework Flask_. Per avviarlo:
 
 ```bash
@@ -20,13 +22,16 @@ cd lib
 FLASK_APP=web.py flask run --port=8080
 ```
 
+### app.py
+
 Il programma da terminale si trova sempre nella cartella lib:
 ```bash
 cd lib
 python3 app.py
 ```
 
-Un esempio di funzionamento del programma:
+## Esempio funzionamento
+
 ```bash
 > (🍺 ) (santo) info add
 Inserisce un nuovo todo: ogni carattere dopo add sarà considerato tale
@@ -48,3 +53,8 @@ Ok
 | 1 |	 Andare a comprare una RedBull
 > (🍺 ) (santo)
 ```
+
+## Screenshots
+![photo1](screenshots/first.png)
+
+![photo2](screenshots/second.png)
