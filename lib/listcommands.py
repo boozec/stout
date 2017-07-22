@@ -7,11 +7,14 @@ class ListCommands(object):
     """
 
     info = {
-        'info' : 'this is stout',
-        'set' : ['set a value', 3],
-        'get' : ['return a value', 3],
-        'add' : ['new TODO',],
-        'del' : ['del TODO', 2]
+        'info' : '''Stout è distribuito sotto licenza MIT e pertanto è possibile farne il fork, modificarlo e distribuirlo nuovamente.
+La lista dei comandi è disponibile su https://github.com/dcariotti/Stout.
+Scrivere info [cmd] per avere più informazioni su un comando.''',
+        'set' : ['''Inserire un valore; accetta solo 1 parametro (user) e viene utilizzato nel modo seguente: set user NAME''', 3],
+        'get' : ['''Ritorna un valore e accetta i parametri todo (ritorna la lista dei todo) e ctodo (ritorna il numero dei todo).
+Se utilizzato con il "flag" i, si possono visualizzare le info: get i host, get i port, get i unix_socket_path, get i db, get i user''', 3],
+        'add' : ['Inserisce un nuovo todo: ogni carattere dopo add sarà considerato tale',],
+        'del' : ['Elimina un todo in base alla sua chiave di valore; per vederle tutte, digitare get todo', 2]
     }
 
     commands = {
