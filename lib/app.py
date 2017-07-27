@@ -36,7 +36,7 @@ class Stout(Commands):
         else:
             cmd = cmd.split()
             count = len(cmd)
-
+            
             if (count == 1 or count == 2) and cmd[0] not in ListCommands.commands:
                 try:
                     if cmd[0] == 'info' and count == 1: #general info
@@ -48,12 +48,14 @@ class Stout(Commands):
                 except (KeyError, IndexError):
                     ListCommands.err('keyword')
             else:
-                what = cmd[0]
-                if what in ListCommands.commands:
-                    self.command(what, cmd)
-                else:
-                    ListCommands.err('keyword')
-
+                try:
+                    what = cmd[0]
+                    if what in ListCommands.commands:
+                        self.command(what, cmd)
+                    else:
+                        ListCommands.err('keyword')
+                except IndexError:
+                   pass
 
 if __name__ == '__main__':
     clear()
@@ -62,7 +64,7 @@ if __name__ == '__main__':
     while cmd != 'quit':
         try:
             cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
-        except EOFError:
+        except (EOFError, KeyboardInterrupt) as e:
             break
 
         app.action(cmd)
