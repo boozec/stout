@@ -64,7 +64,7 @@ if __name__ == '__main__':
     while cmd != 'quit':
         try:
             cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
-        except (EOFError, KeyboardInterrupt) as e:
+        except (EOFError, KeyboardInterrupt):
             break
 
         app.action(cmd)
