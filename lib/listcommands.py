@@ -1,5 +1,5 @@
 import sys
-from classes import Colors
+from classes import RED, BLACK
 
 class ListCommands(object):
     """
@@ -29,10 +29,10 @@ Se utilizzato con il "flag" i, si possono visualizzare le info: get i host, get 
     @staticmethod
     def err(err, info = ''):
         if err == 'keyword':
-            sys.stderr.write(Colors.red + 'keyword inesistente\n' + Colors.black)
+            sys.stderr.write(RED + 'keyword inesistente\n' + BLACK)
         elif err == 'wrong':
-            sys.stderr.write(Colors.red + 'sintassi comando errata\n' + Colors.black)
+            sys.stderr.write(RED + 'sintassi comando errata\n' + BLACK)
         elif err == 'personal':
-            sys.stderr.write(Colors.red + str(info) + '\n' + Colors.black)
+            sys.stderr.write(RED + str(info) + '\n' + BLACK)
         else:
             pass

@@ -1,4 +1,4 @@
-from classes import PersonalError, r, clear, Colors
+from classes import PersonalError, r, clear, RED, GREY
 from listcommands import ListCommands
 from config import config as co
 
@@ -17,7 +17,7 @@ class Commands(object):
                         raise PersonalError('lunghezza maggiore del consetito. Max 10')
 
                     if len(cmd) > ListCommands.info['set'][1]:
-                        raise PersonalError(Colors.grey + 'set user' + Colors.red + ' accetta 1 parametro')
+                        raise PersonalError(GREY + 'set user' + RED + ' accetta 1 parametro')
 
 
                     self.user = cmd[2]
@@ -35,7 +35,7 @@ class Commands(object):
         elif what == 'get':
             try:
                 if len(cmd) > ListCommands.info['get'][1]:
-                    raise PersonalError(Colors.grey + 'get ' + Colors.red + 'accetta 2 parametri')
+                    raise PersonalError(GREY + 'get ' + RED + 'accetta 2 parametri')
 
                 if cmd[1] == 'i': #if first word after get is 'i', there is an info
                     if cmd[2] == 'user':
@@ -93,7 +93,7 @@ class Commands(object):
         elif what == 'del':
             try:
                 if len(cmd) > ListCommands.info['del'][1]:
-                    raise PersonalError(Colors.grey + 'del ' + Colors.red + 'accetta 1 parametro')
+                    raise PersonalError(GREY + 'del ' + RED + 'accetta 1 parametro')
 
                 if r.get('idTODO') is None or r.get('idTODO') == 0: #idTODO is null or 0
                     print('nessun todo in lista: goditi una Stout')

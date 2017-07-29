@@ -1,4 +1,4 @@
-from classes import PersonalError, Colors, r, clear
+from classes import PersonalError, r, clear, YELLOW, BLACK, GREY
 from commands import Commands
 from listcommands import ListCommands
 
@@ -13,7 +13,7 @@ class Stout(Commands):
         if self.user == '':
             return word
         else:
-            return word + Colors.grey + '(' + self.user + ') '
+            return word + GREY + '(' + self.user + ') '
 
     @staticmethod
     def username():
@@ -36,7 +36,7 @@ class Stout(Commands):
         else:
             cmd = cmd.split()
             count = len(cmd)
-            
+
             if (count == 1 or count == 2) and cmd[0] not in ListCommands.commands:
                 try:
                     if cmd[0] == 'info' and count == 1: #general info
@@ -58,12 +58,13 @@ class Stout(Commands):
                    pass
 
 if __name__ == '__main__':
+
     clear()
     app = Stout()
     cmd = ''
     while cmd != 'quit':
         try:
-            cmd = input('>' + Colors.yellow + app.getName() + Colors.black)
+            cmd = input('>' + YELLOW  + app.getName() + BLACK)
         except (EOFError, KeyboardInterrupt):
             break
 
