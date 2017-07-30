@@ -2,7 +2,7 @@ import redis, socket, os
 
 try:
     from .config import config as co
-except ImportError:
+except SystemError:
     from config import config as co
 
 r = redis.Redis(host=co['host'], port=co['port'], unix_socket_path=co['unix_socket_path'], db=co['db'])
