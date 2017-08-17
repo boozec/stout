@@ -101,18 +101,19 @@ class Commands(object):
                     print('nessun todo con questo id')
                 else:
                     try:
-                        msg = self.msgFromId(cmd[1]) #return value of sorted set's rank
+                        msg = msgFromId(cmd[1]) #return value of sorted set's rank
                         r.zrem('todo', msg)
                         r.decr('idTODO')
                         print('Ok')
-                    except:
-                        print('0')
+                    except Exception as e:
+                        print(e)
             except IndexError:
                 ListCommands.err('wrong')
             except KeyError:
                 ListCommands.err('keyword')
 
-    def msgFromId(self, value):
-        for i, val in enumerate(r.zrange('todo', 0, -1)):
-            if i == int(value):
-                return val.decode('utf-8')
+
+def msgFromId(value):
+    for i, val in enumerate(r.zrange('todo', 0, -1)):
+        if i == int(value):
+            return val.decode('utf-8')
