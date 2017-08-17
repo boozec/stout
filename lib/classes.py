@@ -1,4 +1,5 @@
-import redis, socket, os
+import redis, os
+import platform
 
 try:
     from .config import config as co
@@ -17,10 +18,11 @@ def clear():
     """
     clear the window
     """
-    try:
+    nameOs = platform.system()
+    if nameOs == 'Linux':
         os.system('clear')
-    except:
-        os.system('cls')
+    else:
+        os.system('clear')
 
 class PersonalError(Exception):
 
