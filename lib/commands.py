@@ -8,9 +8,7 @@ class Commands(object):
         """
         this function is used for execute a command
         """
-        if what == 'clear':
-            clear()
-        elif what == 'set':
+        if what == 'set':
             try:
                 if cmd[1] == 'user' and cmd[2] is not None: #set name for user
                     if len(cmd[2]) > 10:

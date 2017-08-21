@@ -19,7 +19,6 @@ Se utilizzato con il "flag" i, si possono visualizzare le info: get i host, get 
 
     commands = {
         'quit' : None,
-        'clear' : None,
         'set' : ['user'],
         'get' : ['i', ['user', 'host', 'port', 'unix_socket_path', 'db'], 'todo', 'ctodo'],
         'add' : None,

@@ -59,7 +59,6 @@ class Stout(Commands):
 
 if __name__ == '__main__':
 
-    clear()
     app = Stout()
     cmd = ''
     while cmd != 'quit':

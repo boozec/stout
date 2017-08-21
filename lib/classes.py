@@ -1,5 +1,4 @@
 import redis, os
-import platform
 
 try:
     from .config import config as co
@@ -18,11 +17,7 @@ def clear():
     """
     clear the window
     """
-    nameOs = platform.system()
-    if nameOs == 'Linux':
-        os.system('clear')
-    else:
-        os.system('clear')
+    print('\n' * 100)
 
 class PersonalError(Exception):
 
