@@ -6,11 +6,10 @@ Scrivere info [cmd] per avere più informazioni su un comando.
 
 Stout è un software che tramite linea di comando, e seguendo degli appositi comandi, permette di modificare la lista dei todo (cose da fare) ed eliminarli una volta fatti.
 
-Prima di poter utilizzare Stout, bisogna installare Python3, Flask e Redis:
+Prima di poter utilizzare Stout, bisogna installare Python3 e Flask:
 ```bash
 sudo apt install python3
 sudo pip install Flask
-sudo pip install redis
 ```
 
 ### web.py
