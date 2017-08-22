@@ -2,6 +2,7 @@ from classes import r, clear, YELLOW, BLACK, GREY
 from commands import Commands
 from listcommands import ListCommands
 import os.path
+from config import config
 
 class Stout(Commands):
 
@@ -22,7 +23,7 @@ class Stout(Commands):
         if users exists, return username, else return an empty string
         """
         try:
-            with open('/tmp/stout', 'rb') as fin:
+            with open(config['path'], 'rb') as fin:
                 user = fin.readline()
 	
                 if user == '':
@@ -69,8 +70,8 @@ if __name__ == '__main__':
     app = Stout()
     cmd = ''
 
-    if not os.path.isfile('/tmp/stout'):
-        open('/tmp/stout', 'wb').close()
+    if not os.path.isfile(config['path']):
+        open(config['path'], 'wb').close()
 
     while cmd != 'quit':
         try:

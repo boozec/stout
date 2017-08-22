@@ -19,7 +19,7 @@ class Commands(object):
 
 
                     self.user = cmd[2]
-                    with open('/tmp/stout', 'wb') as fout:
+                    with open(co['path'], 'wb') as fout:
                         fout.write(cmd[2].encode('utf-8'))
 
                     print('Ok')
@@ -38,7 +38,8 @@ class Commands(object):
                     if cmd[2] == 'user':
                         #if self.user is empty, print 'nil'
                         if self.user != '':
-                            print(r.get('user').decode('utf-8'))
+                            with open(co['path'], 'rb') as fin:
+                                print(fin.readline().decode('utf-8'))
                         else:
                             print('nil')
                     elif cmd[2] not in ListCommands.commands['get'][1]: #check if the word after 'i' exists
@@ -46,7 +47,16 @@ class Commands(object):
                     else:
                         print(co[cmd[2]])
                 elif cmd[1] == 'todo':
-                    todolist = r.zrange('todo', 0, -1)
+                    with open(co['path'], 'rb') as fout:
+                        try:
+                            lines = fout.readlines()
+                        except:
+                            lines = ''
+
+                    if lines is not None:
+                        todolist = [x.strip() for i, x in enumerate(lines) if i > 0]
+                    else:
+                        todolist = []
 
                     if len(todolist) == 0: #if todo is empty
                         print('nessun todo in lista: goditi una Stout')
