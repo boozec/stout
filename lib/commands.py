@@ -20,7 +20,7 @@ class Commands(object):
 
                     self.user = cmd[2]
                     with open(co['path'], 'wb') as fout:
-                        fout.write(cmd[2].encode('utf-8'))
+                        fout.write((cmd[2] + '\n').encode('utf-8'))
 
                     print('Ok')
                 elif cmd[1] is not ListCommands.commands['set']:
@@ -82,7 +82,7 @@ class Commands(object):
 
                 try:
                     with open(co['path'], 'ab') as fout:
-                        fout.write(('\n' + msg).encode('utf-8'))
+                        fout.write((msg + '\n').encode('utf-8'))
 
                     print('Ok')
                 except:
