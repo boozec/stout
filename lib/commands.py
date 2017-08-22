@@ -64,12 +64,14 @@ class Commands(object):
                         for num, i in enumerate(todolist): #num = index, i = value
                             print('| {} |\t {}'.format(num, i.decode('utf-8')))
                 elif cmd[1] == 'ctodo':
-                    count = r.get('idTODO')
-
-                    if count is None: #if idTODO is None or 0
+                    with open(co['path'], 'rb') as fout:
+                        for i, val in enumerate(fout.readlines()):
+                            count = i
+                    
+                    if count is 0: #if idTODO is None or 0
                         print('0')
                     else:
-                        print(count.decode('utf-8'))
+                        print(count)
                 else:
                     raise KeyError
             except (IndexError, KeyError) as e:
