@@ -64,10 +64,8 @@ class Commands(object):
                         for num, i in enumerate(todolist): #num = index, i = value
                             print('| {} |\t {}'.format(num, i.decode('utf-8')))
                 elif cmd[1] == 'ctodo':
-                    with open(co['path'], 'rb') as fout:
-                        for i, val in enumerate(fout.readlines()):
-                            count = i
-                    
+                    count = countID()
+
                     if count is 0: #if idTODO is None or 0
                         print('0')
                     else:
@@ -95,16 +93,24 @@ class Commands(object):
             try:
                 if len(cmd) > ListCommands.info['del'][1]:
                     raise PersonalError(GREY + 'del ' + RED + 'accetta 1 parametro')
+                
+                count = countID()
 
-                if r.get('idTODO') is None or r.get('idTODO') == 0: #idTODO is null or 0
+                if count == 0: #todo list is empty
                     print('nessun todo in lista: goditi una Stout')
-                elif cmd[1] >= r.get('idTODO').decode('utf-8'):
+                elif int(cmd[1]) >= count:
                     print('nessun todo con questo id')
                 else:
                     try:
-                        msg = msgFromId(cmd[1]) #return value of sorted set's rank
-                        r.zrem('todo', msg)
-                        r.decr('idTODO')
+                        with open(co['path'], 'rb') as fin:
+                             lines = [x.strip() for x in fin.readlines()]
+                             
+                             del lines[int(cmd[1])+1]
+                        
+                        with open(co['path'], 'wb') as fout:
+                             for line in lines:
+                                 fout.write(line + ('\n'.encode('utf-8')))
+
                         print('Ok')
                     except Exception as e:
                         print(e)
@@ -112,7 +118,9 @@ class Commands(object):
                 ListCommands.err(type(e).__name__)
 
 
-def msgFromId(value):
-    for i, val in enumerate(r.zrange('todo', 0, -1)):
-        if i == int(value):
-            return val.decode('utf-8')
+def countID():
+     with open(co['path'], 'rb') as fout:
+         for i, val in enumerate(fout.readlines()):
+             count = i
+     
+     return count
