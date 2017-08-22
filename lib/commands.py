@@ -24,10 +24,8 @@ class Commands(object):
                     print('Ok')
                 elif cmd[1] is not ListCommands.commands['set']:
                     raise KeyError
-            except IndexError:
-                ListCommands.err('wrong')
-            except KeyError:
-                ListCommands.err('keyword')
+            except (IndexError, KeyError) as e:
+                ListCommands.err(type(e).__name__)
             except PersonalError as e:
                 ListCommands.err('personal', e.value)
         elif what == 'get':
@@ -43,7 +41,7 @@ class Commands(object):
                         else:
                             print('nil')
                     elif cmd[2] not in ListCommands.commands['get'][1]: #check if the word after 'i' exists
-                        ListCommands.err('keyword')
+                        raise KeyError     
                     else:
                         print(co[cmd[2]])
                 elif cmd[1] == 'todo':
@@ -63,10 +61,8 @@ class Commands(object):
                         print(count.decode('utf-8'))
                 else:
                     raise KeyError
-            except IndexError:
-                ListCommands.err('wrong')
-            except KeyError:
-                ListCommands.err('keyword')
+            except (IndexError, KeyError) as e:
+                ListCommands.err(type(e).__name__)
             except PersonalError as e:
                 ListCommands.err('personal', e.value)
         elif what == 'add':
@@ -84,10 +80,8 @@ class Commands(object):
                     print('Ok')
                 except:
                     raise KeyError
-            except IndexError:
-                ListCommands.err('wrong')
-            except KeyError:
-                ListCommands.err('keyword')
+            except (IndexError, KeyError):
+                ListCommands.err(type(e).__name__)
         elif what == 'del':
             try:
                 if len(cmd) > ListCommands.info['del'][1]:
@@ -105,10 +99,8 @@ class Commands(object):
                         print('Ok')
                     except Exception as e:
                         print(e)
-            except IndexError:
-                ListCommands.err('wrong')
-            except KeyError:
-                ListCommands.err('keyword')
+            except (IndexError, KeyError) as e:
+                ListCommands.err(type(e).__name__)
 
 
 def msgFromId(value):

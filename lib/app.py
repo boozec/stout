@@ -53,14 +53,14 @@ class Stout(Commands):
                     else:
                         raise KeyError
                 except (KeyError, IndexError):
-                    ListCommands.err('keyword')
+                    ListCommands.err('KeyError')
             else:
                 try:
                     what = cmd[0]
                     if what in ListCommands.commands:
                         self.command(what, cmd)
                     else:
-                        ListCommands.err('keyword')
+                        ListCommands.err('KeyError')
                 except IndexError:
                    pass
 

@@ -27,9 +27,9 @@ Se utilizzato con il "flag" i, si possono visualizzare le info: get i host, get 
 
     @staticmethod
     def err(err, info = ''):
-        if err == 'keyword':
+        if err == 'KeyError':
             sys.stderr.write(RED + 'keyword inesistente\n' + BLACK)
-        elif err == 'wrong':
+        elif err == 'IndexError':
             sys.stderr.write(RED + 'sintassi comando errata\n' + BLACK)
         elif err == 'personal':
             sys.stderr.write(RED + str(info) + '\n' + BLACK)
