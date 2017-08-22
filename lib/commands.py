@@ -19,7 +19,8 @@ class Commands(object):
 
 
                     self.user = cmd[2]
-                    r.set('user', self.user) #change name of user
+                    with open('/tmp/stout', 'wb') as fout:
+                        fout.write(cmd[2].encode('utf-8'))
 
                     print('Ok')
                 elif cmd[1] is not ListCommands.commands['set']:
