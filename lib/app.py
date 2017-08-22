@@ -1,6 +1,7 @@
 from classes import r, clear, YELLOW, BLACK, GREY
 from commands import Commands
 from listcommands import ListCommands
+import os.path
 
 class Stout(Commands):
 
@@ -20,13 +21,16 @@ class Stout(Commands):
         """
         if users exists, return username, else return an empty string
         """
-        with open('/tmp/stout', 'rb') as fin:
-            user = fin.readline()
+        try:
+            with open('/tmp/stout', 'rb') as fin:
+                user = fin.readline()
 	
-            if user == '':
-                return ''
-            else:
-                return user.decode('utf-8')
+                if user == '':
+                    return ''
+                else:
+                    return user.decode('utf-8')
+        except Exception:
+            return ''
 
     def action(self, cmd):
         """
@@ -64,6 +68,10 @@ if __name__ == '__main__':
 
     app = Stout()
     cmd = ''
+
+    if not os.path.isfile('/tmp/stout'):
+        open('/tmp/stout', 'wb').close()
+
     while cmd != 'quit':
         try:
             cmd = input('>' + YELLOW  + app.getName() + BLACK)
