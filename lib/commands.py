@@ -80,16 +80,12 @@ class Commands(object):
                 ListCommands.err('personal', e.value)
         elif what == 'add':
             try:
-                if r.get('idTODO') is None: #create idTODO if it's null
-                    r.set('idTODO', '0')
-
-                idTODO = r.get('idTODO').decode('utf-8')
-
                 msg = ' '.join(cmd[1:]) #join first word after 'add' to last word
 
                 try:
-                    r.zadd('todo', msg, idTODO)
-                    r.incr('idTODO')
+                    with open(co['path'], 'ab') as fout:
+                        fout.write(('\n' + msg).encode('utf-8'))
+
                     print('Ok')
                 except:
                     raise KeyError
