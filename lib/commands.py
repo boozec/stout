@@ -1,4 +1,4 @@
-from classes import PersonalError, r, clear, RED, GREY
+from classes import PersonalError, clear, RED, GREY
 from listcommands import ListCommands
 from config import config as co
 
