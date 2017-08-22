@@ -20,10 +20,13 @@ class Stout(Commands):
         """
         if users exists, return username, else return an empty string
         """
-        if r.get('user') is not None:
-            return r.get('user').decode('utf-8') #default is a byte
-        else:
-            return ''
+        with open('/tmp/stout', 'rb') as fin:
+            user = fin.readline()
+	
+            if user == '':
+                return ''
+            else:
+                return user.decode('utf-8')
 
     def action(self, cmd):
         """
@@ -68,4 +71,3 @@ if __name__ == '__main__':
             break
 
         app.action(cmd)
-        r.save()
