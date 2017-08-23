@@ -1,3 +1,3 @@
 config = {
-    'path' : '/tmp/stout',
+    'path' : '.data',
 }
