@@ -16,8 +16,6 @@ sudo pip install Flask
 
 ### web.py
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/09f814cd759f4d7eaac5a650c8114fef)](https://www.codacy.com/app/dunkerC/Stout?utm_source=github.com&utm_medium=referral&utm_content=dcariotti/Stout&utm_campaign=badger)
-
 Il software dispone di un client per il web in modo da visualizzare la lista dei todo in modo più comodo. _Necessita dell'installazione del microframework Flask_. Per avviarlo:
 
 ```bash
