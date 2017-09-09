@@ -1,4 +1,4 @@
-from classes import clear, YELLOW, BLACK, GREY
+from classes import YELLOW, BLACK, GREY
 from commands import Commands
 from listcommands import ListCommands
 import os.path
@@ -25,7 +25,6 @@ class Stout(Commands):
         try:
             with open(config['path'], 'rb') as fin:
                 user = fin.readline().split()
-	
                 if user[0] == '':
                     return ''
                 else:

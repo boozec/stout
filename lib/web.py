@@ -8,7 +8,7 @@ def hello():
     with open(config['path'], 'rb') as fout:
         try:
             lines = fout.readlines()
-        except:
+        except Exception as e:
             lines = ''
 
         if lines is not None:

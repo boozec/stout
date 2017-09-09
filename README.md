@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/09f814cd759f4d7eaac5a650c8114fef)](https://www.codacy.com/app/dunkerC/Stout?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dcariotti/Stout&amp;utm_campaign=Badge_Grade)
+
 ![logo](logo_stout.png)
 
 > Stout è distribuito sotto licenza MIT e pertanto è possibile farne il fork, modificarlo e distribuirlo nuovamente.
@@ -6,11 +8,10 @@ Scrivere info [cmd] per avere più informazioni su un comando.
 
 Stout è un software che tramite linea di comando, e seguendo degli appositi comandi, permette di modificare la lista dei todo (cose da fare) ed eliminarli una volta fatti.
 
-Prima di poter utilizzare Stout, bisogna installare Python3, Flask e Redis:
+Prima di poter utilizzare Stout, bisogna installare Python3 e Flask:
 ```bash
 sudo apt install python3
 sudo pip install Flask
-sudo pip install redis
 ```
 
 ### web.py

@@ -1,4 +1,4 @@
-from classes import PersonalError, clear, RED, GREY
+from classes import PersonalError, RED, GREY
 from listcommands import ListCommands
 from config import config as co
 
@@ -42,7 +42,7 @@ class Commands(object):
                                 print(fin.readline().decode('utf-8'))
                         else:
                             print('nil')
-                    elif cmd[2] not in ListCommands.commands['get'][1]: #check if the word after 'i' exists
+                    elif cmd[2] not in ListCommands.commands['get'][1]:
                         raise KeyError     
                     else:
                         print(co[cmd[2]])
@@ -50,7 +50,7 @@ class Commands(object):
                     with open(co['path'], 'rb') as fout:
                         try:
                             lines = fout.readlines()
-                        except:
+                        except Exception as e:
                             lines = ''
 
                     if lines is not None:
@@ -93,7 +93,6 @@ class Commands(object):
             try:
                 if len(cmd) > ListCommands.info['del'][1]:
                     raise PersonalError(GREY + 'del ' + RED + 'accetta 1 parametro')
-                
                 count = countID()
 
                 if count == 0: #todo list is empty
@@ -120,7 +119,7 @@ class Commands(object):
 
 def countID():
      with open(co['path'], 'rb') as fout:
-         for i, val in enumerate(fout.readlines()):
+         for i, _ in enumerate(fout.readlines()):
              count = i
      
      return count
