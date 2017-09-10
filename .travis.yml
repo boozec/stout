@@ -5,7 +5,9 @@ python:
 
 install:
 	- pip install Flask
-sudo:
-	- required
-script:
-	python3 /lib/app.py
+
+dist:
+	- trusty
+
+sudo: required
+
