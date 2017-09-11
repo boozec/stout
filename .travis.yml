@@ -1,6 +1,5 @@
 language: python
 python:
-  - 3.6
-  - nightly
-script:
-  - pytest
+  - 3.5
+install:
+  - pip install -r requirements.txt
