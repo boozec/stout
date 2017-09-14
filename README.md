@@ -56,7 +56,14 @@ Ok
 > (🍺 ) (santo)
 ```
 
-## Screenshots
+## Docker
+
+```bash
+docker build -t stout:latest .
+docker run -i --name Stout stout:latest
+```
+
+## Screenshots (flask)
 ![photo1](screenshots/first.png)
 
 ![photo2](screenshots/second.png)
