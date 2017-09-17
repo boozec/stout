@@ -19,8 +19,15 @@ class Commands(object):
 
 
                     self.user = cmd[2]
+                    with open(co['path'], 'rb') as fin:
+                        listOld = [x.decode('utf-8') for x in fin.readlines()]
+                        del listOld[0]
+                    
                     with open(co['path'], 'wb') as fout:
                         fout.write((cmd[2] + '\n').encode('utf-8'))
+                        for i in listOld:
+                            fout.write((i).encode('utf-8'))
+                        del listOld
 
                     print('Ok')
                 elif cmd[1] is not ListCommands.commands['set']:
@@ -82,6 +89,7 @@ class Commands(object):
 
                 try:
                     with open(co['path'], 'ab') as fout:
+                        fout.seek(1, 1)
                         fout.write((msg + '\n').encode('utf-8'))
 
                     print('Ok')
