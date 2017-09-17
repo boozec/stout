@@ -2,3 +2,4 @@
 /__pycache__
 /lib/__pycache__
 /lib/.data
+/lib/*.pyc

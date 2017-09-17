@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dcariotti/stout.svg?branch=master)](https://travis-ci.org/dcariotti/stout)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/09f814cd759f4d7eaac5a650c8114fef)](https://www.codacy.com/app/dunkerC/Stout?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dcariotti/Stout&amp;utm_campaign=Badge_Grade)
 
 ![logo](logo_stout.png)
@@ -55,7 +56,14 @@ Ok
 > (🍺 ) (santo)
 ```
 
-## Screenshots
+## Docker
+
+```bash
+docker build -t stout:latest .
+docker run -i --name Stout stout:latest
+```
+
+## Screenshots (flask)
 ![photo1](screenshots/first.png)
 
 ![photo2](screenshots/second.png)

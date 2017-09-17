@@ -25,7 +25,7 @@ class Stout(Commands):
         try:
             with open(config['path'], 'rb') as fin:
                 user = fin.readline().split()
-                if user[0] == '':
+                if user[0] is '':
                     return ''
                 else:
                     return user[0].decode('utf-8')
