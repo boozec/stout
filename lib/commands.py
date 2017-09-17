@@ -88,8 +88,10 @@ class Commands(object):
                 msg = ' '.join(cmd[1:]) #join first word after 'add' to last word
 
                 try:
-                    with open(co['path'], 'ab') as fout:
-                        fout.seek(1, 1)
+                    with open(co['path'], 'ab+') as fout:
+                        if fout.readline().decode('utf-8') == '':
+                            fout.write(('\n').encode('utf-8'))
+
                         fout.write((msg + '\n').encode('utf-8'))
 
                     print('Ok')
