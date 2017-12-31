@@ -12,7 +12,7 @@ class Stout(Commands):
 
     def getName(self):
         word = ' (' + self.name + ' ) '
-        if self.user == '':
+        if self.user == '|':
             return word
         else:
             return word + GREY + '(' + self.user + ') '
@@ -70,7 +70,9 @@ if __name__ == '__main__':
     cmd = ''
 
     if not os.path.isfile(config['path']):
-        open(config['path'], 'wb').close()
+        fo = open(config['path'], 'wb')
+        fo.write('|\n'.encode('utf-8'))
+        fo.close()
 
     while cmd != 'quit':
         try:
