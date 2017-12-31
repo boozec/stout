@@ -89,7 +89,7 @@ class Commands(object):
 
                 try:
                     with open(co['path'], 'ab+') as fout:
-                        if fout.readline().decode('utf-8') == '':
+                        if fout.readline().decode('utf-8') is None:
                             fout.write(('\n').encode('utf-8'))
 
                         fout.write((msg + '\n').encode('utf-8'))
