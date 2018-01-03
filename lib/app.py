@@ -1,4 +1,4 @@
-from classes import YELLOW, BLACK, GREY
+from classes import BLACK, GREY
 from commands import Commands
 from listcommands import ListCommands
 import os.path
@@ -7,35 +7,12 @@ from config import config
 class Stout(Commands):
 
     def __init__(self):
-        self.name = u'\U0001F37A' #berr icon
-        self.user = Stout.username()
-
-    def getName(self):
-        word = ' (' + self.name + ' ) '
-        if self.user == '|':
-            return word
-        else:
-            return word + GREY + '(' + self.user + ') '
-
-    @staticmethod
-    def username():
-        """
-        if users exists, return username, else return an empty string
-        """
-        try:
-            with open(config['path'], 'rb') as fin:
-                user = fin.readline().split()
-                if user[0] is '':
-                    return ''
-                else:
-                    return user[0].decode('utf-8')
-        except Exception:
-            return ''
+        self.name = u'\U0001F37A' #beer icon
 
     def action(self, cmd):
         """
         if cmd is empty, do nothing.
-        if length of cmd is less than 3 and the first word isn't in list of commands, the command is INFO
+        if length of cmd is less than 3 and the first word isnt in list of commands, the command is INFO
         else execute command into ListCommands.commands (<- list)
         """
         if cmd is None:
@@ -70,13 +47,11 @@ if __name__ == '__main__':
     cmd = ''
 
     if not os.path.isfile(config['path']):
-        fo = open(config['path'], 'wb')
-        fo.write('|\n'.encode('utf-8'))
-        fo.close()
+        open(config['path'], 'wb').close()
 
     while cmd != 'quit':
         try:
-            cmd = input('>' + YELLOW  + app.getName() + BLACK)
+            cmd = input('>' + GREY  + ' (' + app.name  + ' ) '  + BLACK)
         except (EOFError, KeyboardInterrupt):
             break
 

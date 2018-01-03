@@ -12,7 +12,7 @@ def hello():
             lines = ''
 
         if lines is not None:
-            lista = [x.strip() for i, x in enumerate(lines) if i > 0]
+            lista = [x.strip() for x in lines]
         else:
             lista = []
 

@@ -8,35 +8,7 @@ class Commands(object):
         """
         this function is used for execute a command
         """
-        if what == 'set':
-            try:
-                if cmd[1] == 'user' and cmd[2] is not None: #set name for user
-                    if len(cmd[2]) > 10:
-                        raise PersonalError('lunghezza maggiore del consetito. Max 10')
-
-                    if len(cmd) > ListCommands.info['set'][1]:
-                        raise PersonalError(GREY + 'set user' + RED + ' accetta 1 parametro')
-
-
-                    self.user = cmd[2]
-                    with open(co['path'], 'rb') as fin:
-                        listOld = [x.decode('utf-8') for x in fin.readlines()]
-                        del listOld[0]
-                    
-                    with open(co['path'], 'wb') as fout:
-                        fout.write((cmd[2] + '\n').encode('utf-8'))
-                        for i in listOld:
-                            fout.write((i).encode('utf-8'))
-                        del listOld
-
-                    print('Ok')
-                elif cmd[1] is not ListCommands.commands['set']:
-                    raise KeyError
-            except (IndexError, KeyError) as e:
-                ListCommands.err(type(e).__name__)
-            except PersonalError as e:
-                ListCommands.err('personal', e.value)
-        elif what == 'get':
+        if what == 'get':
             try:
                 if len(cmd) > ListCommands.info['get'][1]:
                     raise PersonalError(GREY + 'get ' + RED + 'accetta 2 parametri')
